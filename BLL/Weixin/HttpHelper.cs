@@ -35,7 +35,7 @@ namespace Business.Weixin
                 myStreamReader.Close();
                 myResponseStream.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                
             }
@@ -71,7 +71,7 @@ namespace Business.Weixin
                 myStreamReader.Close();
                 myResponseStream.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                
             }

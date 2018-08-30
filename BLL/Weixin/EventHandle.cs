@@ -73,15 +73,6 @@ namespace Business.Weixin
                 case "HongBao":
                     messgeText.Content = MsgContent.HongBao();
                     break;
-                case "Query":
-                    messgeText.Content = Query(messgeText.ToUserName);
-                    break;
-                case "Code":
-                    messgeText.Content = GetDynamicCode(messgeText.ToUserName);
-                    break;
-                case "Contact":
-                    messgeText.Content = Contact();
-                    break;
                 default:
                     messgeText.Content = "我只能默认了……。"+ strEventKey;
                     break;
@@ -90,46 +81,6 @@ namespace Business.Weixin
             return messgeText.Messge;
         }
 
-
-        private string GetDynamicCode(string openID)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("动态码：");
-            sb.Append(" \r\n  请保密并确认本人操作！");
-            return sb.ToString();
-        }
-
-        private string Sign(string openid)
-        {
-            try
-            {
-               
-                return "签到成功，获得" + 0 + "分！\t\n \t\n 请明天继续哦！";
-            }
-            catch (Exception ex)
-            {
-                return "系统正在维护，请稍候再来！";
-            }
-
-        }
-
-        private string Query(string openid)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("尊敬的用户您好：　\t\n \t\n");
-           
-            return sb.ToString();
-        }
-
-      
-
-        private string Contact()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("联系客服 \t\n");
-            sb.Append("    QQ1：537012601 \t\n");
-            sb.Append("    QQ2：537012600 \t\n");
-            return sb.ToString();
-        }
+        
     }
 }
