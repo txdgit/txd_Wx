@@ -73,6 +73,9 @@ namespace Business.Weixin
                 case "HongBao":
                     messgeText.Content = MsgContent.HongBao();
                     break;
+                case "Free":
+                    messgeText.Content = MsgContent.Free();
+                    break;
                 default:
                     messgeText.Content = "我只能默认了……。"+ strEventKey;
                     break;
