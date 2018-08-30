@@ -1,0 +1,14 @@
+﻿{
+"button":[
+{
+"type":"view",
+"name":"🎉精彩文章",
+"url":"https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU1NzM5ODk5MA==&scene=124#wechat_redirect"
+},
+{
+"type":"click",
+"name":"💰现金红包",
+"key":"HongBao"
+}
+]
+}

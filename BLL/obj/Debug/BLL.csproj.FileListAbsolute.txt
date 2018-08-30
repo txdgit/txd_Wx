@@ -1,0 +1,6 @@
+E:\zj\Wx\Wx\BLL\bin\Debug\BLL.dll
+E:\zj\Wx\Wx\BLL\bin\Debug\BLL.pdb
+E:\zj\Wx\Wx\BLL\obj\Debug\BLL.dll
+E:\zj\Wx\Wx\BLL\obj\Debug\BLL.pdb
+E:\zj\Wx\Wx\BLL\bin\Debug\Newtonsoft.Json.dll
+E:\zj\Wx\Wx\BLL\bin\Debug\LitJson.dll
