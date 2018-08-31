@@ -34,6 +34,9 @@ namespace Business.Weixin
                 case "subscribe"://关注
                     res = Subscribe(xmldoc);
                     break;
+                case "unsubscribe"://取消关注
+                    UnSubscribe(xmldoc);
+                    break;
                 default:
                     break;
             }
@@ -55,6 +58,14 @@ namespace Business.Weixin
                 lvParenOpenID = "";
             messgeText.Content = MsgContent.Subscribe();
             return messgeText.Messge;
+        }
+        /// <summary>
+        /// 取消关注
+        /// </summary>
+        private void UnSubscribe(XmlDocument xmldoc)
+        {
+            string openID = xmldoc.SelectSingleNode("/xml/FromUserName").InnerText;
+            new BLL.BLL.UserInfoBll().Delete(openID);
         }
 
         /// <summary>
