@@ -18,6 +18,14 @@ namespace BLL.Weixin
             sb.AppendLine("😋😋😋  ");
             return sb.ToString();
         }
+
+        public static string Free()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("敬请期待，我们真正准备！");
+           
+            return sb.ToString();
+        }
         /// <summary>
         /// 关注
         /// </summary>
