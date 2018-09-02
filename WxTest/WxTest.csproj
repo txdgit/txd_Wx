@@ -54,6 +54,10 @@
       <Project>{19de3d51-6d72-4e97-9200-1130fd840e72}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dal\Dal.csproj">
+      <Project>{ed59866d-f8d1-428f-9cc0-db18a3d5d940}</Project>
+      <Name>Dal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Entity\Entity.csproj">
       <Project>{fbe33b38-2203-4470-adcb-0834a9da2582}</Project>
       <Name>Entity</Name>

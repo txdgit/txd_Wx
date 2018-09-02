@@ -21,12 +21,23 @@ namespace BLL.BLL
         /// </summary>
         private BaseDal<UserInfo> dal = new BaseDal<UserInfo>();
 
+        public void Update(UserInfo userInfo)
+        {
+            dal.Update(p => p.OpenID == userInfo.OpenID, userInfo);
+        }
+
+        public UserInfo GetModel(string OpenID)
+        {
+            return dal.GetQueryable().Where(p=>p.OpenID==OpenID).FirstOrDefault<UserInfo>();
+        }
+
         /// <summary>
         /// 用户关注
         /// </summary>
         public void Subscribe(string OpenID,string ParenOpenID)
         {
             UserCheckAdd(OpenID);
+            new InviteBll().CheckData(OpenID, ParenOpenID);
         }
 
         /// <summary>

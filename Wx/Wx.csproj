@@ -70,6 +70,7 @@
     <Content Include="WxPay\BuyProduct.aspx" />
     <Content Include="WxPay\Pay.aspx" />
     <Content Include="WxPay\PayNotify.aspx" />
+    <Content Include="Wx\Kf.aspx" />
     <Content Include="Wx\Wx.aspx" />
     <Content Include="Wx\WxMenu.aspx" />
     <Content Include="XmlConfig\WxMenu.txt" />
@@ -125,6 +126,13 @@
     </Compile>
     <Compile Include="Wx\Index.ashx.cs">
       <DependentUpon>Index.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Wx\Kf.aspx.cs">
+      <DependentUpon>Kf.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wx\Kf.aspx.designer.cs">
+      <DependentUpon>Kf.aspx</DependentUpon>
     </Compile>
     <Compile Include="Wx\Wx.aspx.cs">
       <DependentUpon>Wx.aspx</DependentUpon>

@@ -98,15 +98,15 @@ namespace Business.Weixin
         /// <returns></returns>
         public string SHA1Check(string strIn)
         {
-            MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
-            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(strIn));
-            StringBuilder sBuilder = new StringBuilder();
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-            return sBuilder.ToString();
-            //return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(strIn, "SHA1");
+            //MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
+            //byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(strIn));
+            //StringBuilder sBuilder = new StringBuilder();
+            //for (int i = 0; i < data.Length; i++)
+            //{
+            //    sBuilder.Append(data[i].ToString("x2"));
+            //}
+            //return sBuilder.ToString();
+            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(strIn, "SHA1");
         }
 
         /**

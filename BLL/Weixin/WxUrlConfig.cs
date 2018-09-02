@@ -50,5 +50,20 @@ namespace Business.Weixin
         /// 发送模板消息    必须access_token赋值
         /// </summary>
         public static string Get_SendMessage_Url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
+
+        /// <summary>
+        /// 生成临时二维码 必须access_token赋值
+        /// </summary>
+        public static string Create_QRCoder_Url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
+
+        /// <summary>
+        /// 下载二维码 必须ticket赋值
+        /// </summary>
+        public static string Down_QRCoder_Url = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={0}";
+
+        /// <summary>
+        /// 上传图片 必须ticket赋值
+        /// </summary>
+        public static string Upload_Img_Url = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type=image";
     }
 }

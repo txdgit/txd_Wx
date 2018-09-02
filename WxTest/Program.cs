@@ -12,7 +12,21 @@ namespace WxTest
 
         static void Main(string[] args)
         {
-            new UserInfoBll().UserCheckAdd("5cfa2fc3-e198-4d75-8cce-f8317a49761d");
+            try
+            {
+                //UserInfoBll bll = new UserInfoBll();
+                //var u = bll.GetModel("ozpkJ1MjHFm9f9W_HNCQ3tkRIIts");
+                //u.NickName = "田晓东";
+                //bll.Update(u);
+                //new InviteBll().Poster();
+                Console.WriteLine("0000000");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+          
             Console.Read();
         }
     }

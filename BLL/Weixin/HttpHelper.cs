@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Business.Weixin
 {
@@ -12,6 +14,26 @@ namespace Business.Weixin
     /// </summary>
     public class HttpHelper
     {
+        /// <summary>
+        /// 文件上传
+        /// </summary>
+        public static string PostUpload(string url,string filePath)
+        {
+            WebClient webClient = new WebClient();
+            byte[] bytes = webClient.UploadFile(url,filePath);
+            return Encoding.Default.GetString(bytes);
+        }
+        /// <summary>
+        /// http Get请求返回异常流
+        /// </summary>
+        public static async Task<Stream> GetStream(string url)
+        {
+            HttpClient httpClient = new HttpClient();
+            Task<HttpResponseMessage> httpResponseTask = httpClient.GetAsync(url);
+            HttpResponseMessage httpResponse = await httpResponseTask;
+            return await httpResponseTask.Result.Content.ReadAsStreamAsync();
+        }
+
         /// <summary>
         /// http　GET请求
         /// </summary>
@@ -35,9 +57,9 @@ namespace Business.Weixin
                 myStreamReader.Close();
                 myResponseStream.Close();
             }
-            catch 
+            catch
             {
-               
+
             }
             return outdata;
         }
@@ -71,9 +93,9 @@ namespace Business.Weixin
                 myStreamReader.Close();
                 myResponseStream.Close();
             }
-            catch 
+            catch
             {
-               
+
             }
             return outdata;
         }

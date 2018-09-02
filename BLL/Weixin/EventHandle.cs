@@ -1,8 +1,10 @@
-﻿using BLL.Weixin;
+﻿using BLL.BLL;
+using BLL.Weixin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace Business.Weixin
@@ -26,10 +28,11 @@ namespace Business.Weixin
         {
             string res = string.Empty;
             string strEvent = xmldoc.SelectSingleNode("/xml/Event").InnerText;
+           
             switch (strEvent)
             {
                 case "CLICK":
-                    res = ClickHandle(xmldoc);
+                    res = ClickHandle(xmldoc).Result;
                     break;
                 case "subscribe"://关注
                     res = Subscribe(xmldoc);
@@ -73,12 +76,13 @@ namespace Business.Weixin
         /// </summary>
         /// <param name="xmldoc"></param>
         /// <returns></returns>
-        private string ClickHandle(XmlDocument xmldoc)
+        private async  Task<string> ClickHandle(XmlDocument xmldoc)
         {
             MessgeText messgeText = new MessgeText();
             messgeText.ToUserName = xmldoc.SelectSingleNode("/xml/FromUserName").InnerText;
             messgeText.FromUserName = xmldoc.SelectSingleNode("/xml/ToUserName").InnerText;
             string strEventKey = xmldoc.SelectSingleNode("/xml/EventKey").InnerText;
+            
             switch (strEventKey)
             {
                 case "HongBao":
@@ -86,13 +90,16 @@ namespace Business.Weixin
                     break;
                 case "Free":
                     messgeText.Content = MsgContent.Free();
+                    await Task.Run(()=> {
+                        new UserInfoBll().Subscribe(messgeText.ToUserName, "");
+                    });
                     break;
                 default:
                     messgeText.Content = "我只能默认了……。"+ strEventKey;
                     break;
             }
-
-            return messgeText.Messge;
+           
+            return await Task.Run(()=>{ return messgeText.Messge; });
         }
 
         

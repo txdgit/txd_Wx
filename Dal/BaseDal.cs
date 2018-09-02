@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -105,10 +106,14 @@ namespace Dal
         /// <param name="filter">修改条件</param>
         /// <param name="update">修改结果</param>
         /// <param name="upsert">是否插入新文档（filter条件满足就更新，否则插入新文档）</param>
-        public Int64 Update(Expression<Func<T, Boolean>> filter, UpdateDefinition<T> update, Boolean upsert = true)
+        public Int64 Update(Expression<Func<T, Boolean>> filter, T update, Boolean upsert = true)
         {
             var coll = GetColletion();
-            var result = coll.UpdateMany(filter, update, new UpdateOptions { IsUpsert = upsert });
+            BsonDocument bd = BsonExtensionMethods.ToBsonDocument(update);
+           // var obj = new UpdateDocument(bd);
+            //var obj = MongoDB.Driver.Builders<T>.Update.Set<T>(p=>update, update);
+            //var a = new UpdateDefinition<T>();
+            var result = coll.UpdateMany(filter, bd, new UpdateOptions { IsUpsert = upsert });
             return result.ModifiedCount;
         }
         #endregion
