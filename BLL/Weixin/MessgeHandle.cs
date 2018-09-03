@@ -1,4 +1,5 @@
-﻿using BLL.Weixin;
+﻿using BLL.BLL;
+using BLL.Weixin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace Business.Weixin
             messgeText.ToUserName = xmldoc.SelectSingleNode("/xml/FromUserName").InnerText;
             messgeText.FromUserName = xmldoc.SelectSingleNode("/xml/ToUserName").InnerText;
             messgeText.Content = "您们的信息已收到，我们会及时回复😋";
+            new UserInfoBll().Update(messgeText.ToUserName);
             return messgeText.Messge;
         }
 

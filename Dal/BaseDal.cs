@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -97,6 +98,7 @@ namespace Dal
             var result = coll.DeleteMany(predicate);
             return result.DeletedCount;
         }
+       
         #endregion
 
         #region 修改
@@ -109,11 +111,19 @@ namespace Dal
         public Int64 Update(Expression<Func<T, Boolean>> filter, T update, Boolean upsert = true)
         {
             var coll = GetColletion();
-            BsonDocument bd = BsonExtensionMethods.ToBsonDocument(update);
-           // var obj = new UpdateDocument(bd);
-            //var obj = MongoDB.Driver.Builders<T>.Update.Set<T>(p=>update, update);
-            //var a = new UpdateDefinition<T>();
-            var result = coll.UpdateMany(filter, bd, new UpdateOptions { IsUpsert = upsert });
+            var updObj = Builders<T>.Update;
+            var updates = new List<UpdateDefinition<T>>();
+            Type m = typeof(T);
+            PropertyInfo[] propertys = m.GetProperties();
+            foreach (var item in propertys)
+            {
+                string name = item.Name;
+                object value = m.GetProperty(name)?.GetValue(update, null);
+                if (value == null)
+                    continue;
+                updates.Add(updObj.Set(name, value));
+            }
+            var result = coll.UpdateMany(filter, updObj.Combine(updates), new UpdateOptions { IsUpsert = upsert });
             return result.ModifiedCount;
         }
         #endregion

@@ -65,5 +65,9 @@ namespace Business.Weixin
         /// 上传图片 必须ticket赋值
         /// </summary>
         public static string Upload_Img_Url = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type=image";
+        /// <summary>
+        /// 客服接口-发消息 必须ticket赋值
+        /// </summary>
+        public static string Msg_Send_Url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={0}";
     }
 }

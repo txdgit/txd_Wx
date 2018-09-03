@@ -98,7 +98,9 @@ namespace Business.Weixin
                     messgeText.Content = "我只能默认了……。"+ strEventKey;
                     break;
             }
-           
+
+            new UserInfoBll().Update(messgeText.ToUserName);
+
             return await Task.Run(()=>{ return messgeText.Messge; });
         }
 

@@ -21,9 +21,15 @@ namespace BLL.BLL
         /// </summary>
         private BaseDal<UserInfo> dal = new BaseDal<UserInfo>();
 
-        public void Update(UserInfo userInfo)
+        public async void Update(string OpenID)
         {
-            dal.Update(p => p.OpenID == userInfo.OpenID, userInfo);
+            await Task.Run(()=> {
+                UserInfo userInfo = dal.GetQueryable().Where(p => p.OpenID == OpenID).FirstOrDefault<UserInfo>();
+                if (userInfo == null)
+                    return;
+                userInfo.UpdTime = DateTime.Now;
+                dal.Update(p => p.OpenID == OpenID, userInfo);
+            });
         }
 
         public UserInfo GetModel(string OpenID)

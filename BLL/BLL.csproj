@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\ActivityBLL.cs" />
     <Compile Include="BLL\InviteBll.cs" />
     <Compile Include="BLL\UserInfoBll.cs" />
     <Compile Include="BLL\WXOrderInfo.cs" />
