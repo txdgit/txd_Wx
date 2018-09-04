@@ -31,5 +31,10 @@ namespace Entity
         /// 海报上传微信临时素材ID
         /// </summary>
         public string PosterCoder { get; set; }
+
+        /// <summary>
+        /// 是否支付购买
+        /// </summary>
+        public bool Pay { get; set; } = false;
     }
 }

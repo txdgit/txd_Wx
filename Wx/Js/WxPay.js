@@ -45,16 +45,18 @@ function PaySumbit(JosnObj) {
     },
                         function (res) {
                             if (res.err_msg.indexOf('ok') >= 0) {
-                                alert("打赏成功，我们会更加努力！");
+                                alert("购买成功，我们会更加努力！");
                                 WeixinJSBridge.call('closeWindow');
                                 return;
                             }
                             if (res.err_msg.indexOf('cancel') >= 0) {
                                 alert("支付已取消");
+                                WeixinJSBridge.call('closeWindow');
                                 return;
                             }
                             if (res.err_msg.indexOf('fail') >= 0) {
                                 alert("支付失败，请联系客服！");
+                                WeixinJSBridge.call('closeWindow');
                                 return;
                             }
                             //alert(res.err_code + res.err_desc + res.err_msg);
@@ -69,7 +71,7 @@ var mvPayData = null;
 function PayData(OpenID, BuyNumber, Title) {
     var t = "{";
     t += "'OpenID':'" + OpenID + "',";
-    t += "'ProductNo':'6666',";
+    t += "'ProductNo':'2',";
     t += "'PayMoney':'" + BuyNumber + "',";
     t += "'Title':'" + Title + "'";
     t += "}";

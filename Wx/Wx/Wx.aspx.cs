@@ -14,6 +14,8 @@ namespace Wx.Wx
 
         private string ProductUrl = "http://zy168.shop/WxPay/BuyProduct.aspx";
 
+        private string GoUrl = "http://zy168.shop/WxPay/Index.aspx";
+
         private string type = "";
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,6 +25,9 @@ namespace Wx.Wx
               
                 case "1":
                     url = ProductUrl;
+                    break;
+                case "2":
+                    url = GoUrl;
                     break;
             }
 

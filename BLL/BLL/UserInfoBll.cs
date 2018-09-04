@@ -23,7 +23,8 @@ namespace BLL.BLL
 
         public async void Update(string OpenID)
         {
-            await Task.Run(()=> {
+            await Task.Run(() =>
+            {
                 UserInfo userInfo = dal.GetQueryable().Where(p => p.OpenID == OpenID).FirstOrDefault<UserInfo>();
                 if (userInfo == null)
                     return;
@@ -34,42 +35,30 @@ namespace BLL.BLL
 
         public UserInfo GetModel(string OpenID)
         {
-            return dal.GetQueryable().Where(p=>p.OpenID==OpenID).FirstOrDefault<UserInfo>();
-        }
-
-        /// <summary>
-        /// 用户关注
-        /// </summary>
-        public void Subscribe(string OpenID,string ParenOpenID)
-        {
-            UserCheckAdd(OpenID);
-            new InviteBll().CheckData(OpenID, ParenOpenID);
+            return dal.GetQueryable().Where(p => p.OpenID == OpenID).FirstOrDefault<UserInfo>();
         }
 
         /// <summary>
         /// 判断用户是否存在，如果不存在增加数据库
         /// </summary>
         /// <param name="OpenID">微信ID</param>
-        public async void UserCheckAdd(string OpenID)
+        public void UserCheckAdd(string OpenID)
         {
-            await Task.Run(()=> {
+            long count = dal.Total(p => p.OpenID == OpenID);
+            if (count > 0) return;
 
-                long count = dal.Total(p => p.OpenID == OpenID);
-                if (count > 0) return;
+            new WxHelper().LoadWx();
+            string url = string.Format(WxUrlConfig.Get_UserInfo_Url, WxConfig.Access_Token, OpenID);
+            string strRes = HttpHelper.Get(url);
+            JObject jObject = (JObject)JsonConvert.DeserializeObject(strRes);
+            string nickName = jObject["nickname"].ToString();
+            string icon = jObject["headimgurl"].ToString();
 
-                new WxHelper().LoadWx();
-                string url = string.Format(WxUrlConfig.Get_UserInfo_Url,WxConfig.Access_Token,OpenID);
-                string strRes = HttpHelper.Get(url);
-                JObject jObject = (JObject)JsonConvert.DeserializeObject(strRes);
-                string nickName = jObject["nickname"].ToString();
-                string icon = jObject["headimgurl"].ToString();
-
-                dal.Insert(new UserInfo()
-                {
-                    Icon = icon,
-                    NickName = nickName,
-                    OpenID = OpenID
-                });
+            dal.Insert(new UserInfo()
+            {
+                Icon = icon,
+                NickName = nickName,
+                OpenID = OpenID
             });
         }
 

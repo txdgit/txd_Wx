@@ -1,4 +1,5 @@
-﻿using Business.Weixin;
+﻿using BLL.BLL;
+using Business.Weixin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,14 @@ namespace Wx.Wx
         protected void ButtonAdd_Click(object sender, EventArgs e)
         {
             string url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + WxConfig.Access_Token;
-            string json = "{\"touser\":\"ozpkJ1MjHFm9f9W_HNCQ3tkRIIts\", \"msgtype\":\"text\",\"text\":{\"content\":\"abc   <a href='http://www.qq.com' >点击跳</a>\"}}";
+            string json = "{\"touser\":\"ozpkJ1MjHFm9f9W_HNCQ3tkRIIts\", \"msgtype\":\"image\",\"image\":{\"media_id\":\""+ this.TextBox1.Text + "\"}}";
             this.TextBox1.Text = HttpHelper.Post(url, json);
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string a = @"C:\web\Upload\20180901\ozpkJ1MjHFm9f9W_HNCQ3tkRIIts.jpg";
+           // this.TextBox1.Text = new InviteBll().UploadImg(a);
         }
     }
 }

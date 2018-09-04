@@ -90,16 +90,15 @@ namespace Business.Weixin
                     break;
                 case "Free":
                     messgeText.Content = MsgContent.Free();
-                    await Task.Run(()=> {
-                        new UserInfoBll().Subscribe(messgeText.ToUserName, "");
-                    });
                     break;
                 default:
                     messgeText.Content = "我只能默认了……。"+ strEventKey;
                     break;
             }
 
-            new UserInfoBll().Update(messgeText.ToUserName);
+            await Task.Run(() => {
+                new UserInfoBll().Update(messgeText.ToUserName);
+            });
 
             return await Task.Run(()=>{ return messgeText.Messge; });
         }

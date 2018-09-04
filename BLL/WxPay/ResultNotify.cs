@@ -57,12 +57,8 @@ namespace Eyue.Business.WxPay
 
             try
             {
-               
-                    long lvTID = long.Parse(attach);
-                  
 
-                    string out_trade_no = notifyData.GetValue("out_trade_no").ToString();//商户订单号
-                
+                new BLL.BLL.ActivityBLL().BuyGoods(openid);
             }
             catch (Exception ex)
             {

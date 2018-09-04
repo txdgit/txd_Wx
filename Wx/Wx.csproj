@@ -68,6 +68,7 @@
     <Content Include="Log\日志.txt" />
     <Content Include="Upload\文件.txt" />
     <Content Include="WxPay\BuyProduct.aspx" />
+    <Content Include="WxPay\Index.aspx" />
     <Content Include="WxPay\Pay.aspx" />
     <Content Include="WxPay\PayNotify.aspx" />
     <Content Include="Wx\Kf.aspx" />
@@ -109,6 +110,13 @@
     </Compile>
     <Compile Include="WxPay\BuyProduct.aspx.designer.cs">
       <DependentUpon>BuyProduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WxPay\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WxPay\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="WxPay\Pay.aspx.cs">
       <DependentUpon>Pay.aspx</DependentUpon>

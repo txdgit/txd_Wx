@@ -15,7 +15,7 @@
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="ButtonAdd" runat="server" OnClick="ButtonAdd_Click" Text="增加" />
 &nbsp;&nbsp;
-        <asp:Button ID="Button1" runat="server" Text="上传" />
+        <asp:Button ID="Button1" runat="server" Text="上传" OnClick="Button1_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="ButtonMsg" runat="server" Text="消息" />
     

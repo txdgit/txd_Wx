@@ -26,10 +26,19 @@ namespace BLL.BLL
         /// </summary>
         private BaseDal<Invite> dal = new BaseDal<Invite>();
 
+        public void BuyUpd(string OpenID)
+        {
+            Invite invite = dal.GetQueryable().Where(p => p.OpenID == OpenID).FirstOrDefault();
+            if (invite == null)
+                return;
+            invite.Pay = true;
+            dal.Update(p => p.OpenID == OpenID, invite);
+        }
+
         /// <summary>
         /// 邀请个数
         /// </summary>
-        public long InviteCount(string ParenOpenID)
+        public long Count(string ParenOpenID)
         {
             return dal.Total(p => p.ParentOpenID == ParenOpenID);
         }
@@ -57,7 +66,7 @@ namespace BLL.BLL
         /// <summary>
         /// 上传临时素材
         /// </summary>
-        private string UploadImg(string filePath)
+        public string UploadImg(string filePath)
         {
             new WxHelper().LoadWx();
             string url = string.Format(WxUrlConfig.Upload_Img_Url, WxConfig.Access_Token);
@@ -66,31 +75,12 @@ namespace BLL.BLL
             return jObject["media_id"].ToString();
         }
 
-        /// <summary>
-        /// 检查数据
-        /// </summary>
-        public async void CheckData(string OpenID, string ParenOpenID)
+        
+        public void Add(string OpenID, string ParenOpenID)
         {
-            await Task.Run(() =>
-            {
-                try
-                {
-                    long count = dal.Total(p => p.OpenID == OpenID);
-                    if (count <= 0)
-                        Add(OpenID, ParenOpenID);
-                    Invite invite = GetModel(OpenID);
-
-                }
-                catch (Exception ex)
-                {
-                    LogHelper.Write("Ex..11.." + ex.Message);
-                }
-
-            });
-        }
-
-        private void Add(string OpenID, string ParenOpenID)
-        {
+            long count = dal.Total(p => p.OpenID == OpenID);
+            if (count > 0)
+                return;
             string ticket = QRCoder(OpenID);
             string qRCoderFilePath = DowQRCoder(ticket, OpenID);
             string posterFilePath = Poster(OpenID, qRCoderFilePath);
