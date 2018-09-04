@@ -1,4 +1,5 @@
-﻿using Business.Weixin;
+﻿using BLL.Comm;
+using Business.Weixin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Eyue.Business.WxPay
 
         public override void ProcessNotify()
         {
+            LogHelper.Write("支付中：0000000");
             WxPayData notifyData = GetNotifyData(WxPayConfig.KEY);
             if (!notifyData.IsSet("transaction_id"))
             {
@@ -29,6 +31,7 @@ namespace Eyue.Business.WxPay
                 return;
             }
             System.Threading.Thread lvThread = new System.Threading.Thread(OrderRun);
+            lvThread.IsBackground = true;
             lvThread.Start(notifyData);
 
             Result(true, "OK");
@@ -45,30 +48,31 @@ namespace Eyue.Business.WxPay
                 return;
 
             //订单金额 金额必须除以100
-            string total_fee = notifyData.GetValue("total_fee").ToString();
+            //string total_fee = notifyData.GetValue("total_fee").ToString();
             //openid
             string openid = notifyData.GetValue("openid").ToString();
             //我们配置的Josn数据
-            string attach = notifyData.GetValue("attach").ToString();
+            //string attach = notifyData.GetValue("attach").ToString();
 
-            double lvWxTotal = double.Parse(total_fee)/100;
+            //double lvWxTotal = double.Parse(total_fee)/100;
 
-            string transaction_id = notifyData.GetValue("transaction_id").ToString();//微信支付订单号
+            //string transaction_id = notifyData.GetValue("transaction_id").ToString();//微信支付订单号
 
             try
             {
-
+                LogHelper.Write("支付成功："+openid);
                 new BLL.BLL.ActivityBLL().BuyGoods(openid);
             }
             catch (Exception ex)
             {
-                
+                LogHelper.Write("支付异常：" + ex.Message);
             }
            
         }
 
         private void Result(bool pvIsSuccess,string pvMsg)
         {
+            LogHelper.Write("支付中：11111111111");
             WxPayData res = new WxPayData();
             res.SetValue("return_code", pvIsSuccess?"SUCCESS": "FAIL");
             res.SetValue("return_msg", pvMsg);

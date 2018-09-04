@@ -30,7 +30,15 @@ namespace BLL.Comm
         /// <param name="content">日志内容</param>
         public static void Write(string content)
         {
-            new LogHelper().WriteAsync(content);
+            try
+            {
+                new LogHelper().WriteAsync(content);
+            }
+            catch 
+            {
+            }
+
+            
         }
 
         /// <summary>

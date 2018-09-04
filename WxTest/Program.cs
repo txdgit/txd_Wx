@@ -1,4 +1,5 @@
 ﻿using BLL.BLL;
+using BLL.Comm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace WxTest
                 //u.NickName = "田晓东";
                 //bll.Update(u);
                 //new InviteBll().Poster();
+                LogHelper.Write("支付中：---------");
                 Console.WriteLine("0000000");
             }
             catch (Exception ex)

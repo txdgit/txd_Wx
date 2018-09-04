@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL.Comm;
+using Eyue.Business.WxPay;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,9 @@ namespace Wx.WxPay
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            LogHelper.Write("支付中：---------");
+            ResultNotify resultNotify = new ResultNotify(this);
+            resultNotify.ProcessNotify();
         }
     }
 }

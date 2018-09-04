@@ -369,6 +369,7 @@ namespace Eyue.Business.WxPay
             if (!inputObj.IsSet("notify_url"))
             {
                 inputObj.SetValue("notify_url", WxPayConfig.NOTIFY_URL);//异步通知url
+                BLL.Comm.LogHelper.Write("支付中：---------"+ WxPayConfig.NOTIFY_URL);
             }
 
             inputObj.SetValue("appid", WxPayConfig.APPID);//公众账号ID

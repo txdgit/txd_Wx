@@ -1,4 +1,5 @@
-﻿using Business.Weixin;
+﻿using BLL.Comm;
+using Business.Weixin;
 using Entity;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,8 @@ namespace BLL.BLL
                 inviteBll.Add(OpenID,ParenOpenID);
                 //查询邀请信息
                 Invite invite = inviteBll.GetModel(OpenID);
-                if (invite == null) return;
+                if (invite == null || invite.Pay)
+                    return;
                 //查询邀请个数
                 long count = inviteBll.Count(OpenID);
                 if (count == 0) //等于0说明刚才关注 所以发两条信息
@@ -79,7 +81,9 @@ namespace BLL.BLL
 
         public async void BuyGoods(string OpenID)
         {
+            LogHelper.Write("BuyGoods：1111");
             await Task.Run(()=> {
+                LogHelper.Write("BuyGoods：22222");
                 SendText(OpenID, SendGoods());
                 inviteBll.BuyUpd(OpenID);
                 userInfoBll.Update(OpenID);
@@ -132,8 +136,9 @@ namespace BLL.BLL
         {
             new WxHelper().LoadWx();
             string url = string.Format(WxUrlConfig.Msg_Send_Url, WxConfig.Access_Token);
-            string json = "{\"touser\":\"+OpenID+\", \"msgtype\":\"text\",\"text\":{\"content\":\""+ content + "\"}}";
-            HttpHelper.Post(url, json);
+            string json = "{\"touser\":\""+OpenID+"\", \"msgtype\":\"text\",\"text\":{\"content\":\""+ content + "\"}}";
+            string res =  HttpHelper.Post(url, json);
+            LogHelper.Write("SendText："+json+  res);
         }
 
         private void SendImg(string OpenID, string media_id)
